@@ -1,0 +1,54 @@
+<h4>SKU - Retailer Store</h4>
+<form [formGroup]="retailStoreForm" (ngSubmit)="submitRetailData();">
+  <input formControlName="skuDetails" placeholder="Enter skuDetails name" name="skuDetails" id="skuDetails" />
+  <input formControlName="location" placeholder="Enter location name" name="location" id="location" />
+  <input formControlName="department" placeholder="Enter department name" name="department" id="department" />
+  <input formControlName="category" placeholder="Enter category name" name="category" id="category" />
+  <input formControlName="subCategory" placeholder="Enter subCategory name" name="subCategory" id="subCategory" />
+  <button>Submit</button>
+</form>
+
+<select class="btn btn-secondary dropdown-toggle" (change)="getDepartmentByLocation($event.target.value)">
+  <option value="undefined">Select location</option>
+  <option *ngFor="let location of locationList" [value]="location">{{location}}</option>
+</select>
+<select [disabled]="!departmentActive" class="btn btn-secondary dropdown-toggle"
+  (change)="getCategoryList($event.target.value)">
+  <option value="undefined">Select department</option>
+  <option *ngFor="let department of departmentList" [value]="department">{{department}}</option>
+</select>
+<select [disabled]="!categoryActive" class="btn btn-secondary dropdown-toggle"
+  (change)="getsubCategoryList($event.target.value)">
+  <option value="undefined">Select category</option>
+  <option *ngFor="let category of categoryList" [value]="category">{{category}}</option>
+</select>
+<select [disabled]="!subCategoryActive" class="btn btn-secondary dropdown-toggle"
+  (change)="getData($event.target.value)">
+  <option value="undefined">Select subCategory</option>
+  <option *ngFor="let subCategory of subCategoryList" [value]="subCategory">{{subCategory}}</option>
+</select>
+
+
+<table class="cust table table-striped row-border hover">
+  <tr>
+    <th *ngFor="let col of reportHeaders">
+      {{col}}
+    </th>
+  </tr>
+  <tr *ngFor="let char of recordsList">
+    <td *ngFor="let col of reportHeaders">
+      <div *ngIf="col != 'Action'">
+        {{char[col]}}
+      </div>
+      <div *ngIf="col == 'Action'">
+        <a (click)="deleteRetail(char['skuId'])">
+          <i class="fa fa-trash fa-2" aria-hidden="true"></i>
+        </a>
+        <span class="grey"> | </span>
+        <a (click)="editRetail(char['skuId'])">
+          <i class="fa fa-pencil-square fa-2" aria-hidden="true"></i>
+        </a>
+      </div>
+    </td>
+  </tr>
+</table>
