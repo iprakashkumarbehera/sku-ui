@@ -18,7 +18,7 @@ export class RetailerStoreService {
     private getDeleteDetailsAPI = constants.REST_API_URL + '/api/v1/deleteSkuDetails/@id@'
     private getDetailsByIdAPI = constants.REST_API_URL + '/api/v1/getSkuDetailsById/@id@'
     private updateSkuDetailsAPI = constants.REST_API_URL + '/api/v1/addOrUpdateSkuDetails'
-    private getDepartmentAPI = constants.REST_API_URL + '/api/v1/location/@location_id@/department'
+    private getDepartmentAPI = constants.REST_API_URL + '/api/v1/location/@location_id@department'
     private getCategoryAPI = constants.REST_API_URL;
     getRetailById(id: any) {
         return this.http.post(this.getDetailsByIdAPI.replace('@id@', id + "/"), httpOptions);
@@ -47,6 +47,8 @@ export class RetailerStoreService {
     }
 
     getDepartment(location_id: any) {
+        console.log(this.getDepartmentAPI.replace('@location_id@', location_id + "/"));
+        debugger
         return this.http.post(this.getDepartmentAPI.replace('@location_id@', location_id + "/"), httpOptions);
     }
 

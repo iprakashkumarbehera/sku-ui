@@ -3,18 +3,35 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RetailStoreModule } from './retail-store/retail-store.module';
+import { MenuComponent } from './menu/menu.component';
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RetailStoreComponent } from './retail-store/retail-store.component';
+import { HttpInterceptorService } from './httpInterceptor.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MenuComponent,
+    LoginComponent,
+    LogoutComponent,
+    RetailStoreComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RetailStoreModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpInterceptorService,
+    multi: true
+  }],
+bootstrap: [AppComponent]
 })
 export class AppModule { }
